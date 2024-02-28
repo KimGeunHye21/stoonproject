@@ -1,0 +1,58 @@
+{{>layouts/header}}
+<style>
+    /* 컨테이너에 좌우 여백 추가 */
+    .container {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+
+
+{{#book}}
+<form class="container" action="/book/update" method="post">
+    <input name="id" type="hidden" value="{{id}}">
+
+    <div class="mb-3">
+        <label class="form-label">책장</label>
+        <input type="text" class="form-control" name="section" value="{{section}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title" value="{{title}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">작가1</label>
+        <input type="text" class="form-control" name="author1" value="{{author1}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">작가2</label>
+        <input type="text" class="form-control" name="author2" value="{{author2}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">권수</label>
+        <input type="number" class="form-control" name="volume" value = "{{volume}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">장르1</label>
+        <input type="text" class="form-control" name="genre1" value = "{{genre1}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">장르2</label>
+        <input type="text" class="form-control" name="genre2" value = "{{genre2}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">등급</label>
+        <input type="number" class="form-control" name="rating" value = "{{rating}}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">수정 완료</button>
+
+    <a href="/book/managementList" class="btn btn-warning">Back</a>
+</form>
+{{/book}}
+
+
+{{>layouts/footer}}
+

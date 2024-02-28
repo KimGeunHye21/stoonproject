@@ -1,0 +1,57 @@
+{{>layouts/header}}
+
+<form id="bookForm" class="container">
+    <div class="mb-3">
+        <label class="form-label">제목</label>
+        <input type="text" class="form-control" name="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">작가1</label>
+        <input type="text" class="form-control" name="author1">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">작가2</label>
+        <input type="text" class="form-control" name="author2">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">책장</label>
+        <input type="text" class="form-control" name="section">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">권수</label>
+        <input type="number" class="form-control" name="volume">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">장르1</label>
+        <input type="text" class="form-control" name="genre1">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">장르2</label>
+        <input type="text" class="form-control" name="genre2">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">등급</label>
+        <input type="number" class="form-control" name="rating">
+    </div>
+
+    <button type="button" id="submitBtn" class="btn btn-primary">등록</button>
+</form>
+    <a href="/book/list">Back</a>
+
+
+{{>layouts/footer}}
+
+
+<script>
+    document.getElementById("submitBtn").addEventListener("click", function() {
+        var formData = JSON.stringify(Object.fromEntries(new FormData(document.getElementById("bookForm"))));
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/book/register");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                window.location.href = "/book/list";
+            }
+        };
+        xhr.send(formData);
+    });</script>

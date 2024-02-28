@@ -1,0 +1,70 @@
+{{>layouts/header}}
+
+<style>
+    /* 컨테이너에 좌우 여백 추가 */
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+</style>
+
+<div class="container">
+
+<form action="/book/register", method="post">
+
+<div class="mb-3">
+    <label class="form-label">책장</label>
+    <input type="text" class="form-control" name="section">
+</div>
+<div class="mb-3">
+    <label class="form-label">제목</label>
+    <input type="text" class="form-control" name="title">
+</div>
+<div class="mb-3">
+    <label class="form-label">작가1</label>
+    <input type="text" class="form-control" name="author1">
+</div>
+<div class="mb-3">
+    <label class="form-label">작가2</label>
+    <input type="text" class="form-control" name="author2">
+</div>
+<div class="mb-3">
+    <label class="form-label">권수</label>
+    <input type="number" class="form-control" name="volume" value="0">
+</div>
+<div class="mb-3">
+    <label class="form-label">장르1</label>
+    <input type="text" class="form-control" name="genre1">
+</div>
+<div class="mb-3">
+    <label class="form-label">장르2</label>
+    <input type="text" class="form-control" name="genre2">
+</div>
+<div class="mb-3">
+    <label class="form-label">등급</label>
+    <input type="number" class="form-control" name="rating" value='0'>
+</div>
+
+<button type="submit" class="btn btn-primary">등록</button>
+</form>
+
+</div>
+
+{{>layouts/footer}}
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 폼 제출 전에 빈 문자열을 null로 변환
+        function convertEmptyToNull() {
+            const volumeInput = document.getElementsByName('volume')[0];
+            if (volumeInput.value === "") {
+                volumeInput.value = null;
+            }
+        }
+
+        // 폼 제출 이벤트 리스너 추가
+        document.querySelector('form').addEventListener('submit', convertEmptyToNull);
+    });
+</script>

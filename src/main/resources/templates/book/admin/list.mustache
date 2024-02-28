@@ -1,0 +1,71 @@
+{{>layouts/header}}
+
+<style>
+    /* 컨테이너에 좌우 여백 추가 */
+    .container {
+        padding-top: 25px;
+        padding-bottom: 25px;
+
+    }
+</style>
+
+<div class="container">
+    <th class="back-button"><a href="/book/managementList?searchType=title&query=" class="btn btn-warning">검색어 리셋</a></th>
+    <th class="back-button"><a href="/book/new" class="btn btn-success">신규 도서 등록</a></th>
+
+    <h2 class="text-center">도서 수정</h2>
+    <form class="mb-3" action="/book/managementList" method="GET">
+        <div class="input-group mb-3">
+            <div>
+                <select class="form-select" name="searchType">
+                    <option value="title">제목</option>
+                    <option value="author">작가</option>
+                </select>
+            </div>
+            <input type="text" class="form-control" placeholder="검색어를 입력하세요" name="query" value="{{query}}">
+            <button class="btn btn-primary" type="submit">검색</button>
+        </div>
+    </form>
+
+    <h3 class="text-center"></h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">수정</th>
+            <th scope="col">삭제</th>
+
+            <th scope="col">도서Id</th>
+            <th scope="col">책장</th>
+            <th scope="col">제목</th>
+            <th scope="col">작가1</th>
+            <th scope="col">작가2</th>
+            <th scope="col">권수</th>
+            <th scope="col">장르1</th>
+            <th scope="col">장르2</th>
+            <th scope="col">등급</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#searchResults}}
+            <tr>
+                <th><a href="/book/{{id}}/edit" class="btn btn-primary">수정</a></th>
+                <th><a href="/book/{{id}}/delete" class="btn btn-danger">삭제</a></th>
+
+                <td>{{id}}</td>
+                <td>{{section}}</td>
+                <td>{{title}}</td>
+                <td>{{author1}}</td>
+                <td>{{author2}}</td>
+                <td>{{volume}}</td>
+                <td>{{genre1}}</td>
+                <td>{{genre2}}</td>
+                <td>{{rating}}</td>
+            </tr>
+        {{/searchResults}}
+        </tbody>
+    </table>
+
+
+</div>
+
+{{>layouts/footer}}
