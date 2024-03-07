@@ -1,15 +1,32 @@
 {{>layouts/header}}
 
 <style>
+
+    /* 도서 검색 결과 목록을 스크롤할 수 있도록 설정 */
+    .result-table {
+        max-height: 60vh; /* 화면의 70%까지만 표시하고 스크롤 가능하도록 설정 */
+        overflow-y: auto; /* 세로 스크롤바가 필요한 경우만 표시 */
+    }
+
+    /* 테이블의 thead를 고정 */
+    .table-fixed thead {
+        position: sticky;
+        top: 0;
+        background-color: white; /* 배경색을 흰색으로 설정하여 내용과 구분 */
+    }
+
     /* 컨테이너에 좌우 여백 추가 */
     .container {
-        padding-top: 25px;
+        padding-top: 85px; /* 헤더 높이만큼 여백 추가 */
         padding-bottom: 25px;
         padding-left: 10px;
         padding-right: 10px;
     }
 </style>
 
+<div class="header">
+    {{>layouts/header}}
+</div>
 
 <div class="container">
     <h2 class="text-center">도서 검색</h2>
@@ -26,39 +43,38 @@
         </div>
     </form>
 
-<!--    <h3 class="text-center">검색 결과</h3>-->
-    <p></p>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">책장</th>
-            <th scope="col">제목</th>
-            <th scope="col">작가1</th>
-            <th scope="col">작가2</th>
-            <th scope="col">권수</th>
-            <th scope="col">장르1</th>
-            <th scope="col">장르2</th>
-            <th scope="col">등급</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#searchResults}}
+    <div class="result-table">
+        <table class="table table-fixed">
+            <thead>
             <tr>
-                <td>{{section}}</td>
-                <td>{{title}}</td>
-                <td>{{author1}}</td>
-                <td>{{author2}}</td>
-                <td>{{volume}}</td>
-                <td>{{genre1}}</td>
-                <td>{{genre2}}</td>
-                <td>{{rating}}</td>
+                <th scope="col">책장</th>
+                <th scope="col">제목</th>
+                <th scope="col">작가1</th>
+                <th scope="col">작가2</th>
+                <th scope="col">권수</th>
+                <th scope="col">장르1</th>
+                <th scope="col">장르2</th>
+                <th scope="col">등급</th>
             </tr>
-        {{/searchResults}}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {{#searchResults}}
+                <tr>
+                    <td>{{section}}</td>
+                    <td>{{title}}</td>
+                    <td>{{author1}}</td>
+                    <td>{{author2}}</td>
+                    <td>{{volume}}</td>
+                    <td>{{genre1}}</td>
+                    <td>{{genre2}}</td>
+                    <td>{{rating}}</td>
+                </tr>
+            {{/searchResults}}
+            </tbody>
+        </table>
+    </div>
 </div>
 
-{{>layouts/footer}}
-
-
-
+<div class="footer">
+    {{>layouts/footer}}
+</div>

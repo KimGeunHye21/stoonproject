@@ -5,15 +5,58 @@
     .container {
         padding-top: 25px;
         padding-bottom: 25px;
+    }
 
+    /* 버튼 스타일 */
+    .back-button {
+        position: sticky;
+        top: 25px;
+        z-index: 999; /* 다른 요소 위에 고정되도록 z-index 설정 */
+        margin-right: 10px; /* 오른쪽 여백 추가 */
+    }
+
+    /* 테이블 스타일 */
+    .table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    /* 테이블 제목 고정 */
+    .table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #fff; /* 헤더가 화면 위에 고정될 때 배경색을 지정 */
+        z-index: 1;
+    }
+
+    /* 테이블 내용 스크롤 가능하도록 설정 */
+    .table-container {
+        max-height: 60vh; /* 화면 높이의 60%로 설정 */
+        overflow-y: auto; /* 세로 스크롤이 필요한 경우 스크롤 표시 */
+    }
+
+    /* 테이블 내용 스크롤시 가림막 생성 */
+    .table tbody::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
     }
 </style>
 
 <div class="container">
-    <th class="back-button"><a href="/book/managementList?searchType=title&query=" class="btn btn-warning">검색어 리셋</a></th>
-    <th class="back-button"><a href="/book/new" class="btn btn-success">신규 도서 등록</a></th>
+    <div class="row">
+        <div class="col-6 back-button">
+            <a href="/book/managementList?searchType=title&query=" class="btn btn-warning">검색어 리셋</a>
+            <a href="/book/new" class="btn btn-success">신규 도서 등록</a>
+        </div>
+    </div>
 
     <h2 class="text-center">도서 수정</h2>
+
     <form class="mb-3" action="/book/managementList" method="GET">
         <div class="input-group mb-3">
             <div>
@@ -27,45 +70,42 @@
         </div>
     </form>
 
-    <h3 class="text-center"></h3>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">수정</th>
-            <th scope="col">삭제</th>
-
-            <th scope="col">도서Id</th>
-            <th scope="col">책장</th>
-            <th scope="col">제목</th>
-            <th scope="col">작가1</th>
-            <th scope="col">작가2</th>
-            <th scope="col">권수</th>
-            <th scope="col">장르1</th>
-            <th scope="col">장르2</th>
-            <th scope="col">등급</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#searchResults}}
+    <div class="table-container">
+        <table class="table">
+            <thead>
             <tr>
-                <th><a href="/book/{{id}}/edit" class="btn btn-primary">수정</a></th>
-                <th><a href="/book/{{id}}/delete" class="btn btn-danger">삭제</a></th>
-
-                <td>{{id}}</td>
-                <td>{{section}}</td>
-                <td>{{title}}</td>
-                <td>{{author1}}</td>
-                <td>{{author2}}</td>
-                <td>{{volume}}</td>
-                <td>{{genre1}}</td>
-                <td>{{genre2}}</td>
-                <td>{{rating}}</td>
+                <th scope="col">수정</th>
+                <th scope="col">삭제</th>
+                <th scope="col">도서Id</th>
+                <th scope="col">책장</th>
+                <th scope="col">제목</th>
+                <th scope="col">작가1</th>
+                <th scope="col">작가2</th>
+                <th scope="col">권수</th>
+                <th scope="col">장르1</th>
+                <th scope="col">장르2</th>
+                <th scope="col">등급</th>
             </tr>
-        {{/searchResults}}
-        </tbody>
-    </table>
-
-
+            </thead>
+            <tbody>
+            {{#searchResults}}
+                <tr>
+                    <td><a href="/book/{{id}}/edit" class="btn btn-primary">수정</a></td>
+                    <td><a href="/book/{{id}}/delete" class="btn btn-danger">삭제</a></td>
+                    <td>{{id}}</td>
+                    <td>{{section}}</td>
+                    <td>{{title}}</td>
+                    <td>{{author1}}</td>
+                    <td>{{author2}}</td>
+                    <td>{{volume}}</td>
+                    <td>{{genre1}}</td>
+                    <td>{{genre2}}</td>
+                    <td>{{rating}}</td>
+                </tr>
+            {{/searchResults}}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {{>layouts/footer}}
