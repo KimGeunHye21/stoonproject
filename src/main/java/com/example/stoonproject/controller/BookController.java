@@ -131,7 +131,8 @@ public class BookController {
 
         // 1. 모든 데이터 가져오기
         ArrayList<Book> searchedEntityList;
-        if(searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);
+        if(searchType.equals("all")) searchedEntityList = bookRepository.findByQuery_all(query);
+        else if (searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);
         else searchedEntityList = bookRepository.findByQuery_author(query);
 
         // 2. 모델에 데이터 등록하기

@@ -21,4 +21,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT * FROM book WHERE REPLACE(author1, ' ', '') LIKE REPLACE(CONCAT('%', :query, '%'), ' ', '')" +
             "OR REPLACE(author2, ' ', '') LIKE REPLACE(CONCAT('%', :query, '%'), ' ', '')", nativeQuery = true)
     ArrayList<Book> findByQuery_author(@Param("query") String query);
+    @Query(value = "SELECT * FROM book WHERE REPLACE(author1, ' ', '') LIKE REPLACE(CONCAT('%', :query, '%'), ' ', '')" +
+            "OR REPLACE(author2, ' ', '') LIKE REPLACE(CONCAT('%', :query, '%'), ' ', '')" +
+            "OR REPLACE(title, ' ', '') LIKE REPLACE(CONCAT('%', :query, '%'), ' ', '')", nativeQuery = true)
+    ArrayList<Book> findByQuery_all(@Param("query") String query);
+
+
 }
