@@ -76,14 +76,15 @@
             <tr>
                 <th scope="col">수정</th>
                 <th scope="col">삭제</th>
+
                 <th scope="col">도서Id</th>
                 <th scope="col">책장</th>
                 <th scope="col">제목</th>
-                <th scope="col">작가1</th>
+                <th scope="col">작가</th>
+                <th scope="col">연령제한</th>
                 <th scope="col">권수</th>
                 <th scope="col">장르1</th>
                 <th scope="col">장르2</th>
-                <th scope="col">등급</th>
             </tr>
             </thead>
             <tbody>
@@ -94,11 +95,11 @@
                     <td>{{id}}</td>
                     <td>{{section}}</td>
                     <td>{{title}}</td>
-                    <td>{{author1}}</td>
+                    <td>{{author}}</td>
+                    <td>{{rating}}세 이상</td>
                     <td>{{volume}}</td>
                     <td>{{genre1}}</td>
                     <td>{{genre2}}</td>
-                    <td>{{rating}}</td>
                 </tr>
             {{/searchResults}}
             </tbody>

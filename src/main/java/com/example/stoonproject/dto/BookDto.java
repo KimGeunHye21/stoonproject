@@ -12,8 +12,7 @@ import lombok.*;
 public class BookDto {
     private Long id;
     private String title;
-    private String author1;
-    private String author2;
+    private String author;
     private String section;
     private int volume;
     private String genre1;
@@ -21,7 +20,7 @@ public class BookDto {
     private int rating;
 
     public Book toEntity() {
-        return new Book(id, title, author1, author2, section, volume, genre1, genre2, rating);
+        return new Book(id, title, author, section, volume, genre1, genre2, rating);
     }
 
 

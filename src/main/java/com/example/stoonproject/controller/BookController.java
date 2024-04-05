@@ -63,9 +63,10 @@ public class BookController {
 
         if (searchType == null) searchType = "title"; // 기본값은 제목검색으로 설정
 
-        // 1. 모든 데이터 가져오기
+        // 1. 데이터 가져오기
         ArrayList<Book> searchedEntityList;
-        if(searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);
+        if(searchType.equals("all")) searchedEntityList = bookRepository.findByQuery_all(query);
+        else if(searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);
         else searchedEntityList = bookRepository.findByQuery_author(query);
 
         // 2. 모델에 데이터 등록하기
@@ -129,7 +130,7 @@ public class BookController {
     public String search(@RequestParam(required = false) String query, @RequestParam(required = false) String searchType, Model model) {
         if (searchType == null) searchType = "title"; // 기본값은 제목검색으로 설정
 
-        // 1. 모든 데이터 가져오기
+        // 1. 데이터 가져오기
         ArrayList<Book> searchedEntityList;
         if(searchType.equals("all")) searchedEntityList = bookRepository.findByQuery_all(query);
         else if (searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);

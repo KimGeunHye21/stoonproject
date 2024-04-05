@@ -20,9 +20,7 @@ public class Book {
     @Column
     private String title;
     @Column
-    private String author1;
-    @Column
-    private String author2;
+    private String author;
     @Column
     private String section;
     @Column
@@ -33,6 +31,5 @@ public class Book {
     private String genre2;
     @Column
     private int rating;
-
 
 }
