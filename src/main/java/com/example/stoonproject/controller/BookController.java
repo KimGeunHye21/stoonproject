@@ -1,6 +1,9 @@
 package com.example.stoonproject.controller;
 
 import com.example.stoonproject.dto.BookDto;
+import com.example.stoonproject.entity.SearchHistory;
+import com.example.stoonproject.repository.SearchHistoryRepository;
+import com.example.stoonproject.service.SearchTop;
 import org.springframework.ui.Model;
 import com.example.stoonproject.entity.Book;
 import com.example.stoonproject.repository.BookRepository;
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Slf4j
@@ -20,7 +24,8 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
-
+    @Autowired
+    private SearchHistoryRepository searchHistoryRepository;
 
     @GetMapping("/book/new")
     public String newBookForm() {
@@ -128,18 +133,46 @@ public class BookController {
 
     @GetMapping("/book/search")
     public String search(@RequestParam(required = false) String query, @RequestParam(required = false) String searchType, Model model) {
+
+        // 1. 검색한 데이터 출력하기
         if (searchType == null) searchType = "title"; // 기본값은 제목검색으로 설정
 
-        // 1. 데이터 가져오기
+        // 1-1. 데이터 가져오기
         ArrayList<Book> searchedEntityList;
         if(searchType.equals("all")) searchedEntityList = bookRepository.findByQuery_all(query);
         else if (searchType.equals("title")) searchedEntityList = bookRepository.findByQuery_title(query);
         else searchedEntityList = bookRepository.findByQuery_author(query);
 
-        // 2. 모델에 데이터 등록하기
+        // 1-2. 모델에 데이터 등록하기
         model.addAttribute("searchType", searchType);
         model.addAttribute("query", (query != null) ? query : "");
         model.addAttribute("searchResults", searchedEntityList);
+
+
+        // 2. 검색순위를 위한 검색쿼리 DB에 저장
+
+        // 2-1. DTO를 엔티티로 변환
+        if (!query.equals("")) {
+            SearchHistory searchHistoryEntity = new SearchHistory();
+            searchHistoryEntity.setQuery(query);
+            searchHistoryEntity.setDate(LocalDate.now());
+
+            log.info(searchHistoryEntity.toString());
+
+            // 2-2. 리파지터리로 엔티티를 DB에 저장
+
+            SearchHistory saved = searchHistoryRepository.save(searchHistoryEntity);
+            log.info(saved.toString());
+
+            ArrayList<String> test_searchHistory = searchHistoryRepository.findAllSearchQueries();
+            for (String str : test_searchHistory) System.out.println(str);
+
+
+        }
+        SearchTop searchTop = new SearchTop();
+        ArrayList<String> popularSearches = searchTop.getPopularSearches();
+        //model.addAttribute("popularSearches", popularSearches);
+
 
         // 3. 뷰 페이지 설정하기
         return "/book/search";
